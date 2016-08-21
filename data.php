@@ -5,18 +5,18 @@ include ('connect.php');
 $databaseConn = new mysqli($hostname, $username, $password, $database);
 
 // check the connection
-if( $databaseConn->connect_errno )
-{
-	printf( "Connection failed: %s\n", $databaseConn->connect_error );
-	exit();
-}
+//if( $databaseConn->connect_errno )
+//{
+//	printf( "Connection failed: %s\n", $databaseConn->connect_error );
+//	exit();
+//}
 
 // get data and store in a json array
 $databaseQuery = "SELECT * FROM employees LIMIT i,i";
 $from = 0;
 $to = 200;
 
-$result = $mysqli->prepare($databaseQuery);
+$result = $databaseConn->prepare($databaseQuery);
 $result->bind_param('ii', $from, $to);
 $result->execute();
 
@@ -42,5 +42,5 @@ echo json_encode($employees);
 $result->close();
 
 // close connection
-$mysqli->close();
+$databaseConn->close();
 ?>
